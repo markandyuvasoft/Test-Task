@@ -1,6 +1,7 @@
 import express from "express";
 import Auth from '../models/authM.js'
 import multer from 'multer'
+import path from "path";
 
 const authrouter = express.Router()
 
@@ -8,7 +9,7 @@ const authrouter = express.Router()
 const storage = multer.diskStorage({
   destination: './upload/images',
   filename: (req, file, cb) => {
-    cb(null, file.originalname)
+    return cb(null, `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`)
   }
 })
 const upload = multer({
