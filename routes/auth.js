@@ -34,7 +34,7 @@ authrouter.post("/post", async (req, res) => {
           const user = new Auth({
             Name, Post, Description, Active,
             Photo: {
-            file: `http://localhost:3000/Photo/${req.file.filename}`,
+            file: `https://testmarkand.herokuapp.com/Photo/${req.file.filename}`,
             }
           });
           user.save()
@@ -48,7 +48,7 @@ authrouter.post("/post", async (req, res) => {
   })
 })
 
-//get method..................................
+//get by id method..................................
 authrouter.get("/get/:id",async(req,res)=>{
 
   try{
@@ -63,6 +63,19 @@ authrouter.get("/get/:id",async(req,res)=>{
   }
 })
 
+//get all.....................................
+authrouter.get("/all",async(req,res)=>{
+
+  try{
+  const record= await Auth.find({})
+
+  res.status(200).send(record)
+}
+  catch(err)
+  {
+    res.status(400).send(err)
+  }
+})
 
 //update details..........................................
 authrouter.put("/update/:id",async(req,res)=>{
@@ -79,7 +92,7 @@ authrouter.put("/update/:id",async(req,res)=>{
           var user = await Auth.findByIdAndUpdate(_id,{
             Name, Post, Description, Active,
             Photo:{
-              file: `http://localhost:3000/Photo/${req.file.filename}`,
+              file: `https://testmarkand.herokuapp.com/Photo/${req.file.filename}`,
             },
             new:true
           })
